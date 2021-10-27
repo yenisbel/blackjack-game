@@ -1,16 +1,24 @@
+let playerName = "Robert";
+let playerCoins = 0;
 let message = "";
-let firstCard = randomCard();
-let secondCard = randomCard();
-let cards = [firstCard, secondCard];
+let cards = [];
 //let cardsDeck = cards.fill(Math.floor(Math.random() * 10) + 1);
-let sum = firstCard + secondCard;
+let sum = 0;
 let hasBlackJack = false;
 let isDead = false;
 let messageEl = document.getElementById("message");
 let sumEl = document.getElementById("result");
 let cardEl = document.getElementById("card");
+let playerEl = document.getElementById("player");
+
+playerEl.textContent = `Player: ${playerName} $${playerCoins}`;
 
 function startGame(){
+    isDead = false;
+    let firstCard = randomCard();
+    let secondCard = randomCard();
+    cards = [firstCard, secondCard];
+    sum = firstCard + secondCard;
     renderGame()
 }
 
@@ -34,12 +42,23 @@ function renderGame() {
 }
 
 function randomCard(){
-    return Math.floor(Math.random() * 10) + 2
+    let randomNumber = Math.floor(Math.random() * 13) + 1
+    if(randomNumber > 10){
+        return 10
+    }else if(randomNumber === 1){
+        return 11
+    }else {
+        return randomNumber
+    }
 }
 
 function newCard(){
-    let otherCard = randomCard();
-    sum += otherCard;
-    cards.push(otherCard);
-    renderGame()
+    if(isDead || hasBlackJack){
+        startGame()
+    }else {
+        let otherCard = randomCard();
+        sum += otherCard;
+        cards.push(otherCard);
+        renderGame()
+    }
 }
