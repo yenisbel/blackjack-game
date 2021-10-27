@@ -1,5 +1,13 @@
+let playerEl = document.getElementById("player");
+let customerName = prompt("Enter your name", "");
+if (customerName!= null) {
+    playerEl.innerHTML = customerName;
+}else{
+    customerName = "IAM"
+}
+
 let player = {
-    name: "Yeni",
+    name: customerName,
     coins: 0
 }
 let message = "";
@@ -10,7 +18,6 @@ let isDead = false;
 let messageEl = document.getElementById("message");
 let sumEl = document.getElementById("result");
 let cardEl = document.getElementById("card");
-let playerEl = document.getElementById("player");
 
 playerEl.textContent = `Player: ${player.name} $${player.coins}`;
 
@@ -32,7 +39,6 @@ function renderGame() {
     sumEl.textContent = `Sum: ${sum}`;
     if (sum <= 20) {
         message = "Do you want a new card?";
-        //newCard();
     } else if(sum === 21) {
         message = "You've got Blackjack!";
         hasBlackJack = true;
