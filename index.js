@@ -1,8 +1,9 @@
-let playerName = "Robert";
-let playerCoins = 0;
+let player = {
+    name: "Yeni",
+    coins: 0
+}
 let message = "";
 let cards = [];
-//let cardsDeck = cards.fill(Math.floor(Math.random() * 10) + 1);
 let sum = 0;
 let hasBlackJack = false;
 let isDead = false;
@@ -11,10 +12,11 @@ let sumEl = document.getElementById("result");
 let cardEl = document.getElementById("card");
 let playerEl = document.getElementById("player");
 
-playerEl.textContent = `Player: ${playerName} $${playerCoins}`;
+playerEl.textContent = `Player: ${player.name} $${player.coins}`;
 
 function startGame(){
     isDead = false;
+    hasBlackJack = false;
     let firstCard = randomCard();
     let secondCard = randomCard();
     cards = [firstCard, secondCard];
@@ -30,9 +32,12 @@ function renderGame() {
     sumEl.textContent = `Sum: ${sum}`;
     if (sum <= 20) {
         message = "Do you want a new card?";
+        //newCard();
     } else if(sum === 21) {
         message = "You've got Blackjack!";
-        hasBlackJack = true
+        hasBlackJack = true;
+        player.coins += 10;
+        playerEl.textContent = `Player: ${player.name} $${player.coins}`;
     }else{
         message = "Sorry, you're out of the game!"
         isDead = true
